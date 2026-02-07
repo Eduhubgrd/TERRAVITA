@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#022c22">
+    <title>Terravita Green | Global Portal</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Outfit:wght@100;300;400;600;700&display=swap');
+
+        :root {
+            --emerald: #022c22;
+            --lime: #84cc16;
+        }
+
+        body {
+            background-color: var(--emerald);
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .heading-font { font-family: 'Syncopate', sans-serif; }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+        }
+
+        .nav-bar {
+            position: fixed;
+            bottom: 15px;
+            left: 15px;
+            right: 15px;
+            background: rgba(2, 44, 34, 0.95);
+            backdrop-filter: blur(15px);
+            border-radius: 30px;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.4);
+            text-decoration: none;
+        }
+
+        .nav-item.active { color: var(--lime); }
+
+        .product-select-btn {
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .product-select-btn.active {
+            background: var(--lime) !important;
+            color: var(--emerald) !important;
+            border-color: var(--lime);
+            transform: scale(1.02);
+        }
+
+        .social-btn {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: 0.3s;
+        }
+
+        .social-btn:hover { background: var(--lime); color: var(--emerald); }
+
+        .status-badge {
+            background: rgba(132, 204, 22, 0.15);
+            color: var(--lime);
+            padding: 4px 12px;
+            border-radius: 100px;
+            font-size: 9px;
+            font-weight: 700;
+            display: inline-block;
+        }
+
+        section { padding: 50px 20px; }
+        ::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="pb-32">
+
+    <!-- Hero Section -->
+    <header class="min-h-[60vh] flex flex-col justify-center items-center text-center px-6 relative">
+        <div class="absolute w-72 h-72 bg-lime-500/10 rounded-full blur-[110px] -z-10"></div>
+        <h1 class="heading-font text-2xl font-bold tracking-tighter mb-1 uppercase">Terravita <span class="text-lime-500">Green</span></h1>
+        <p class="text-[8px] uppercase tracking-[0.5em] opacity-40 mb-10">Standard Soil Engineering</p>
+        
+        <div class="glass-card p-8 w-full max-w-sm">
+            <div class="status-badge mb-4">GLOBAL EXPORT READY</div>
+            <h2 class="text-xl font-bold mb-4 uppercase tracking-tight">The Golden Minerals</h2>
+            <p class="text-xs opacity-60 leading-relaxed italic">
+                "From the roots of Jharkhand to global standards—we restore the soul of the soil."
+            </p>
+        </div>
+    </header>
+
+    <!-- Vision Story -->
+    <section id="vision">
+        <h3 class="heading-font text-[10px] text-lime-500 font-bold uppercase tracking-widest mb-10 text-center">Our Journey & Vision</h3>
+        <div class="space-y-6">
+            <div class="glass-card p-6 border-l-2 border-lime-500">
+                <h4 class="font-bold text-sm mb-2 uppercase text-lime-500">The Core Story</h4>
+                <p class="text-[12px] opacity-70 leading-relaxed">
+                    Terravita Green began in the heart of Jharkhand's local agriculture. Noticing how chemical fertilizers were depleting the land, we envisioned a path to rejuvenate soil fertility using high-grade organic minerals.
+                </p>
+            </div>
+            <div class="glass-card p-6 border-l-2 border-blue-500">
+                <h4 class="font-bold text-sm mb-2 uppercase text-blue-400">Global Reach</h4>
+                <p class="text-[12px] opacity-70 leading-relaxed">
+                    Following our local success, we expanded across India. Today, we export specialized "Moisture Retaining Minerals" to the UAE and Gulf nations to enable greening in arid desert climates.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Moisture & Tech -->
+    <section id="quality" class="bg-white/5">
+        <h3 class="heading-font text-[10px] text-lime-500 font-bold uppercase tracking-widest mb-10 text-center">Technology & Quality</h3>
+        <div class="grid grid-cols-1 gap-4">
+            <div class="glass-card p-6 flex items-start gap-4">
+                <div class="bg-blue-500/20 p-3 rounded-xl"><i class="fas fa-droplet text-blue-400"></i></div>
+                <div>
+                    <h5 class="text-xs font-bold uppercase mb-1">Moisture Control Tech</h5>
+                    <p class="text-[11px] opacity-70">Our mineral powder retains moisture 4x more efficiently, making it the premier choice for Arid climates (Gulf region).</p>
+                </div>
+            </div>
+            <div class="glass-card p-6 flex items-start gap-4">
+                <div class="bg-lime-500/20 p-3 rounded-xl"><i class="fas fa-award text-lime-400"></i></div>
+                <div>
+                    <h5 class="text-xs font-bold uppercase mb-1">Certified Standards</h5>
+                    <p class="text-[11px] opacity-70">ISO certified processing with lab-tested nutrient density (N-P-K) for consistent global performance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trust Certifications -->
+    <section id="certificates">
+        <h3 class="heading-font text-[10px] text-lime-500 font-bold uppercase tracking-widest mb-8 text-center">Trust & Certifications</h3>
+        <div class="flex flex-wrap justify-center gap-6 opacity-80">
+            <div class="text-center">
+                <div class="w-14 h-14 glass-card rounded-full flex items-center justify-center mb-2 border-lime-500/30">
+                    <i class="fas fa-award text-xl text-lime-500"></i>
+                </div>
+                <p class="text-[7px] uppercase font-bold">ISO Certified</p>
+            </div>
+            <div class="text-center">
+                <div class="w-14 h-14 glass-card rounded-full flex items-center justify-center mb-2 border-lime-500/30">
+                    <i class="fas fa-leaf text-xl text-lime-500"></i>
+                </div>
+                <p class="text-[7px] uppercase font-bold">100% Organic</p>
+            </div>
+            <div class="text-center">
+                <div class="w-14 h-14 glass-card rounded-full flex items-center justify-center mb-2 border-lime-500/30">
+                    <i class="fas fa-ship text-xl text-lime-500"></i>
+                </div>
+                <p class="text-[7px] uppercase font-bold">Export Grade</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Terminal -->
+    <section id="order">
+        <div class="glass-card p-6 border-lime-500/10">
+            <h3 class="text-center heading-font text-[10px] mb-8 uppercase tracking-widest">Global Order Terminal</h3>
+            
+            <p class="text-[9px] uppercase font-bold text-lime-500 mb-3 opacity-60 px-1">1. Select Mineral Product</p>
+            <div class="grid grid-cols-2 gap-2 mb-8">
+                <div class="product-select-btn glass-card p-4 text-center active" onclick="selectProduct('Dung Powder', 350, this)">
+                    <i class="fas fa-cloud-sun text-xs mb-2"></i>
+                    <h6 class="text-[9px] font-bold uppercase">Dung Powder</h6>
+                </div>
+                <div class="product-select-btn glass-card p-4 text-center" onclick="selectProduct('Vermicompost', 250, this)">
+                    <i class="fas fa-leaf text-xs mb-2"></i>
+                    <h6 class="text-[9px] font-bold uppercase">Vermicompost</h6>
+                </div>
+                <div class="product-select-btn glass-card p-4 text-center" onclick="selectProduct('Energy Blocks', 450, this)">
+                    <i class="fas fa-cube text-xs mb-2"></i>
+                    <h6 class="text-[9px] font-bold uppercase">Energy Blocks</h6>
+                </div>
+                <div class="product-select-btn glass-card p-4 text-center" onclick="selectProduct('Seed Pills', 600, this)">
+                    <i class="fas fa-seedling text-xs mb-2"></i>
+                    <h6 class="text-[9px] font-bold uppercase">Seed Pills</h6>
+                </div>
+            </div>
+
+            <p class="text-[9px] uppercase font-bold text-lime-500 mb-3 opacity-60 px-1">2. Quantity (Metric Tons)</p>
+            <input type="number" id="qtyInput" value="1" min="1" oninput="calculate()" class="w-full bg-white/5 border border-white/10 p-5 rounded-2xl text-3xl font-bold text-center outline-none focus:border-lime-500 transition mb-10">
+
+            <div class="flex justify-between items-center px-2 mb-10">
+                <span class="text-[10px] opacity-40 uppercase tracking-widest" id="selectedLabel">Dung Powder</span>
+                <span class="font-bold text-lime-400 text-xl" id="resUSD">$ 350</span>
+            </div>
+
+            <button onclick="sendWhatsApp()" class="w-full bg-lime-500 text-emerald-950 font-bold py-5 rounded-2xl text-[10px] uppercase tracking-widest shadow-xl shadow-lime-500/30 active:scale-95 transition">
+                <i class="fab fa-whatsapp mr-2"></i> Submit Inquiry
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="mt-8 mb-12 px-6 text-center">
+        <div class="flex flex-wrap justify-center gap-4 mb-8">
+            <a href="https://facebook.com/terravitagreen" target="_blank" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://instagram.com/terravitagreen" target="_blank" class="social-btn"><i class="fab fa-instagram"></i></a>
+            <a href="https://linkedin.com/company/terravitagreen" target="_blank" class="social-btn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="mailto:terravitagreen@gmail.com" class="social-btn"><i class="fas fa-envelope"></i></a>
+            <a href="https://youtube.com/@terravitagreen" target="_blank" class="social-btn"><i class="fab fa-youtube"></i></a>
+        </div>
+        <p class="text-[8px] opacity-30 uppercase tracking-[0.3em]">Terravita Green LLP &copy; 2026</p>
+        <p class="text-[7px] opacity-20 uppercase mt-2 tracking-widest">Jharkhand | India | Global Exports</p>
+    </footer>
+
+    <!-- App Navigation -->
+    <nav class="nav-bar">
+        <a href="#" class="nav-item active"><i class="fas fa-home"></i><span class="mt-1">HOME</span></a>
+        <a href="#vision" class="nav-item"><i class="fas fa-eye"></i><span class="mt-1">VISION</span></a>
+        <a href="#quality" class="nav-item"><i class="fas fa-shield-halved"></i><span class="mt-1">TECH</span></a>
+        <a href="#order" class="nav-item"><i class="fas fa-calculator"></i><span class="mt-1">ORDER</span></a>
+    </nav>
+
+    <script>
+        let selectedProduct = "Dung Powder";
+        let currentUnitPrice = 350;
+
+        function selectProduct(name, price, element) {
+            selectedProduct = name;
+            currentUnitPrice = price;
+            document.querySelectorAll('.product-select-btn').forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+            document.getElementById('selectedLabel').innerText = name;
+            calculate();
+        }
+
+        function calculate() {
+            const qty = document.getElementById('qtyInput').value || 0;
+            const total = qty * currentUnitPrice;
+            document.getElementById('resUSD').innerText = '$ ' + total.toLocaleString();
+        }
+
+        function sendWhatsApp() {
+            const qty = document.getElementById('qtyInput').value;
+            const total = (qty * currentUnitPrice).toLocaleString();
+            const message = `Hello Terravita Green Team,\n\nI am interested in a professional export inquiry:\nMineral: ${selectedProduct}\nQuantity: ${qty} Metric Tons\nEstimated Value: $${total}\n\nPlease share detailed laboratory reports and moisture retention certifications.`;
+            const url = `https://wa.me/919835528845?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+        calculate();
+    </script>
+</body>
+</html>
+
