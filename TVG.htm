@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#022c22">
+    <title>TERRAVITA GREEN | Global Card</title>
+    
+    <!-- PWA Manifest Simulation -->
+    <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIlRlcnJhdml0YSBHcmVlbiIsCiAgInNob3J0X25hbWUiOiAiVFZHIiwKICAic3RhcnRfdXJsIjogIi4iLAogICJkaXNwbGF5IjogInN0YW5kYWxvbmUiLAogICJiYWNrZ3JvdW5kX2NvbG9yIjogIiMwMjJjMjIiLAogICJ0aGVtZV9jb2xvciI6ICIjMDIyYzIyIgp9">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Outfit:wght@100;300;400;700&display=swap');
+
+        :root {
+            --emerald: #022c22;
+            --lime-glow: #84cc16;
+        }
+
+        body {
+            background-color: var(--emerald);
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            overflow-x: hidden;
+        }
+
+        .heading-font { font-family: 'Syncopate', sans-serif; }
+
+        /* App-like Glassmorphism */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+        }
+
+        /* Virtual Card Glow */
+        .card-glow {
+            box-shadow: 0 0 30px rgba(132, 204, 22, 0.1);
+        }
+
+        /* Smooth Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            z-index: 90;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px;
+            background: rgba(2, 44, 34, 0.9);
+            backdrop-filter: blur(15px);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.5);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 10px;
+            color: rgba(255, 255, 255, 0.4);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-item.active {
+            color: var(--lime-glow);
+        }
+
+        .nav-item i {
+            font-size: 18px;
+            margin-bottom: 4px;
+        }
+
+        /* Inputs */
+        input, textarea {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(132, 204, 22, 0.2);
+            color: white;
+            outline: none;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            width: 100%;
+            padding: 12px;
+            font-family: 'Outfit', sans-serif;
+        }
+        
+        input:focus, textarea:focus {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--lime-glow);
+        }
+
+        .product-btn {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .product-btn.active {
+            background: var(--lime-glow);
+            color: var(--emerald);
+            border: none;
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px -5px rgba(132, 204, 22, 0.3);
+        }
+        
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        
+        .modal-overlay.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-content {
+            width: 90%;
+            max-width: 350px;
+            transform: scale(0.9);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .modal-overlay.open .modal-content {
+            transform: scale(1);
+        }
+
+        /* Hide scrollbar */
+        ::-webkit-scrollbar { display: none; }
+    </style>
+</head>
+<body class="pb-32 selection:bg-lime-500 selection:text-emerald-950">
+
+    <!-- Header / Brand -->
+    <header class="gsap-fade p-6 pt-12 flex justify-between items-center">
+        <div class="heading-font text-xl font-bold tracking-tighter">
+            TV<span class="text-lime-500">G</span>
+        </div>
+        <div class="text-[8px] uppercase tracking-[0.4em] opacity-30 text-right">
+            JHARKHAND INDIA<br>GLOBAL EXPORT
+        </div>
+    </header>
+
+    <!-- Hero / Virtual Identity Card -->
+    <section class="gsap-fade px-6 mb-12">
+        <div class="glass-card p-8 card-glow relative overflow-hidden group">
+            <div class="absolute -top-20 -right-20 w-40 h-40 bg-lime-500/10 rounded-full blur-3xl group-hover:bg-lime-500/20 transition-all duration-700"></div>
+            <span class="text-lime-500 text-[10px] font-bold uppercase tracking-widest block mb-2">Terravita Green LLP</span>
+            <h1 class="heading-font text-2xl font-bold mb-4 uppercase leading-tight">GOLDEN<br>MINERALS</h1>
+            <p class="text-xs opacity-60 leading-relaxed italic mb-6">
+                Redefining the soil of the world with Indian organic excellence.
+            </p>
+            <div class="flex gap-4">
+                <a href="https://wa.me/919835528845" class="bg-lime-500 text-emerald-950 px-6 py-3 rounded-full font-bold text-[10px] uppercase shadow-lg shadow-lime-500/20 active:scale-95 transition-transform">
+                    Contact Now
+                </a>
+                <!-- Updated Button: Opens Enquiry Form -->
+                <button onclick="openForm()" class="glass-card p-3 rounded-full px-5 text-[10px] font-bold uppercase active:scale-95 transition-transform hover:bg-white/5 border-lime-500/30">
+                    <i class="fas fa-paper-plane mr-2 text-lime-400"></i> Enquiry
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats / Highlights -->
+    <section class="gsap-fade grid grid-cols-2 gap-4 px-6 mb-12">
+        <div class="glass-card p-4 text-center hover:bg-white/5 transition-colors">
+            <div class="text-lime-500 text-xl font-bold mb-1">100%</div>
+            <div class="text-[8px] uppercase opacity-40">Organic Purity</div>
+        </div>
+        <div class="glass-card p-4 text-center hover:bg-white/5 transition-colors">
+            <div class="text-lime-500 text-xl font-bold mb-1">GLOBAL</div>
+            <div class="text-[8px] uppercase opacity-40">Export Ready</div>
+        </div>
+    </section>
+
+    <!-- Products / Quick Selection -->
+    <section id="products" class="gsap-fade px-6 mb-12">
+        <h3 class="heading-font text-xs mb-6 uppercase tracking-widest opacity-50">Our Treasures</h3>
+        <div class="grid grid-cols-2 gap-3">
+            <button onclick="selectProduct('powder', 25000)" class="product-btn glass-card p-4 text-left active" id="btn-powder">
+                <div class="text-[10px] font-bold uppercase">Dung Powder</div>
+                <div class="text-[7px] opacity-50 uppercase mt-1">Gulf Grade</div>
+            </button>
+            <button onclick="selectProduct('vermi', 18000)" class="product-btn glass-card p-4 text-left" id="btn-vermi">
+                <div class="text-[10px] font-bold uppercase">Vermicompost</div>
+                <div class="text-[7px] opacity-50 uppercase mt-1">Gold Standard</div>
+            </button>
+            <button onclick="selectProduct('blocks', 35000)" class="product-btn glass-card p-4 text-left" id="btn-blocks">
+                <div class="text-[10px] font-bold uppercase">Energy Blocks</div>
+                <div class="text-[7px] opacity-50 uppercase mt-1">Power Fuel</div>
+            </button>
+            <button onclick="selectProduct('pills', 50000)" class="product-btn glass-card p-4 text-left" id="btn-pills">
+                <div class="text-[10px] font-bold uppercase">Seed Pills</div>
+                <div class="text-[7px] opacity-50 uppercase mt-1">Instant Growth</div>
+            </button>
+        </div>
+    </section>
+
+    <!-- App Calculator Section -->
+    <section id="terminal" class="gsap-fade px-6 mb-12">
+        <div class="glass-card p-6 border-lime-500/10">
+            <h4 class="text-[10px] font-bold uppercase text-lime-400 mb-6 text-center tracking-widest">Export Calculator</h4>
+            
+            <div class="mb-6 relative">
+                <span class="text-[8px] uppercase opacity-50 block mb-2 text-center">Quantity (Tons)</span>
+                <input type="number" id="qtyInput" value="1" min="1" oninput="calculatePrice()" class="w-full p-4 text-2xl font-bold text-center">
+            </div>
+
+            <div class="space-y-4 pt-4 border-t border-white/5">
+                <div class="flex justify-between items-center">
+                    <span class="text-[9px] uppercase opacity-40">INR Value</span>
+                    <span class="font-bold text-lg" id="priceINR">₹ 0</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-[9px] uppercase opacity-40">USD Value</span>
+                    <span class="font-bold text-lg text-lime-500" id="priceUSD">$ 0</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <span class="text-[9px] uppercase opacity-40">AED Value</span>
+                    <span class="font-bold text-lg" id="priceAED">د.إ 0</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NEW: Enquiry / Feedback Modal Form -->
+    <div id="enquiryModal" class="modal-overlay">
+        <div class="glass-card modal-content p-6 relative">
+            <button onclick="closeForm()" class="absolute top-4 right-4 text-white/50 hover:text-white">
+                <i class="fas fa-times text-lg"></i>
+            </button>
+            
+            <h3 class="heading-font text-xl font-bold mb-1 text-lime-400">ENQUIRY</h3>
+            <p class="text-[10px] uppercase opacity-50 mb-6">Send feedback directly to us</p>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="text-[9px] uppercase opacity-60 ml-1">Your Name</label>
+                    <input type="text" id="formName" placeholder="Enter name">
+                </div>
+                
+                <div>
+                    <label class="text-[9px] uppercase opacity-60 ml-1">Phone Number</label>
+                    <input type="tel" id="formPhone" placeholder="+91...">
+                </div>
+
+                <div>
+                    <label class="text-[9px] uppercase opacity-60 ml-1">Message / Feedback</label>
+                    <textarea id="formMsg" rows="3" placeholder="I want to order..."></textarea>
+                </div>
+
+                <button onclick="submitEnquiry()" class="w-full bg-lime-500 text-emerald-950 font-bold py-3 rounded-xl mt-2 text-xs uppercase tracking-widest shadow-lg shadow-lime-500/20 active:scale-95 transition-transform">
+                    Send via WhatsApp <i class="fab fa-whatsapp ml-1"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom App Navigation -->
+    <nav class="bottom-nav">
+        <a href="#" class="nav-item active" onclick="setActiveNav(this)">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="#products" class="nav-item" onclick="setActiveNav(this)">
+            <i class="fas fa-leaf"></i>
+            <span>Minerals</span>
+        </a>
+        <a href="#terminal" class="nav-item" onclick="setActiveNav(this)">
+            <i class="fas fa-calculator"></i>
+            <span>Terminal</span>
+        </a>
+        <a href="#" onclick="openForm()" class="nav-item">
+            <i class="fas fa-comment-alt"></i>
+            <span>Form</span>
+        </a>
+    </nav>
+
+    <script>
+        // Init GSAP Animations
+        document.addEventListener("DOMContentLoaded", (event) => {
+            gsap.from(".gsap-fade", {
+                y: 30,
+                opacity: 0,
+                duration: 1,
+                stagger: 0.15,
+                ease: "power3.out"
+            });
+        });
+
+        let currentPricePerTon = 25000;
+        const rates = { USD: 0.012, AED: 0.044 };
+
+        // --- PRODUCT & CALCULATOR LOGIC ---
+        function selectProduct(type, price) {
+            currentPricePerTon = price;
+            document.querySelectorAll('.product-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('btn-' + type).classList.add('active');
+            
+            gsap.from("#priceINR, #priceUSD, #priceAED", { scale: 1.1, color: "#fff", duration: 0.3, ease: "power1.out" });
+            calculatePrice();
+        }
+
+        function calculatePrice() {
+            const qty = document.getElementById('qtyInput').value || 0;
+            const inr = qty * currentPricePerTon;
+            document.getElementById('priceINR').innerText = '₹ ' + inr.toLocaleString();
+            document.getElementById('priceUSD').innerText = '$ ' + Math.round(inr * rates.USD).toLocaleString();
+            document.getElementById('priceAED').innerText = 'د.إ ' + Math.round(inr * rates.AED).toLocaleString();
+        }
+
+        function setActiveNav(element) {
+            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        // --- FORM LOGIC ---
+        function openForm() {
+            document.getElementById('enquiryModal').classList.add('open');
+        }
+
+        function closeForm() {
+            document.getElementById('enquiryModal').classList.remove('open');
+        }
+
+        function submitEnquiry() {
+            // Get values
+            const name = document.getElementById('formName').value;
+            const phone = document.getElementById('formPhone').value;
+            const msg = document.getElementById('formMsg').value;
+
+            // Simple validation
+            if(!name || !phone) {
+                alert("Please fill Name and Phone");
+                return;
+            }
+
+            // Create WhatsApp Message
+            const finalMessage = `*New Enquiry from App Card*%0a%0a👤 *Name:* ${name}%0a📞 *Phone:* ${phone}%0a📝 *Message:* ${msg}`;
+            
+            // Redirect to WhatsApp
+            window.location.href = `https://wa.me/919835528845?text=${finalMessage}`;
+            
+            closeForm();
+        }
+
+        // Initialize
+        calculatePrice();
+    </script>
+</body>
+</html>
+
+
